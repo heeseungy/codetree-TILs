@@ -1,2 +1,2 @@
 a, b = 3, 'C'
-print("{}!...!{}".format(b, a))
+print("{}!.....!{}".format(b, a))
