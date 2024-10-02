@@ -1,2 +1,2 @@
 n = int(input())
-print("Your score is {} point.".format(n))
+print("Your score is " + str(n) + " point.")
