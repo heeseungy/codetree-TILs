@@ -1,8 +1,7 @@
 n = int(input())
 
-sum_val = 0
+cnt = 100 -n + 1
 
-for i in range(n, 101):
-    sum_val += i
+sum_val = (n+100) * cnt // 2
 
 print(sum_val)
