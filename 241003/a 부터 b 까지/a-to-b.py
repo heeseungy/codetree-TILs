@@ -7,5 +7,5 @@ def print_sequence(a, b):
         else:
             current *= 2
 
-a, b = 2, 13
+a, b = map(int, input().split())
 print_sequence(a, b)
