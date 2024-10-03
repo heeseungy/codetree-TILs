@@ -1,6 +1,6 @@
 m = int(input())
 
-if 3 <= m and 5 <= m:
+if 3 <= m and m <= 5:
     print('Spring')
 elif 6 <= m and m <= 8:
     print('Summer')
