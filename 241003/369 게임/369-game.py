@@ -6,7 +6,7 @@ while num <= n:
     if num % 3 == 0:
         print(0, end=' ')
     # 숫자에 3, 6, 9중 하나가 들어가는가?
-    elif num % 10 in (3, 6, 9):
+    elif num % 10 or num % 100 in (3, 6, 9):
         print(0, end=' ')
     else:
         print(num, end=' ')
