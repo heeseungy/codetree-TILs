@@ -1,8 +1,10 @@
-cnt = 0
+cnt3, cnt5 = 0, 0
 
 for _ in range(10):
     a = int(input())
-    if a % 3 == 0 or a % 5 == 0:
-        cnt += 1
+    if a % 3 == 0:
+        cnt3 += 1
+    if a % 5 == 0:
+        cnt5 += 1
 
-print(cnt)
+print(cnt3, cnt5)
