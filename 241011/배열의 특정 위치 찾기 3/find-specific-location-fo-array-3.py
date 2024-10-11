@@ -6,4 +6,4 @@ for i in range(len(arr)):
         num = i
         break
 
-print(sum(arr[0:num]))
+print(sum(arr[num-3:num]))
