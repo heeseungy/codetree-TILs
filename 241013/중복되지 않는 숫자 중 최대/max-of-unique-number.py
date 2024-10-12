@@ -1,15 +1,9 @@
 n = int(input())
 nums = list(map(int, input().split()))
+result = []
 
-idx, val = 0, 0
-
-for i in range(len(nums)):
+for i in range(1, 1001):
     if nums.count(i) == 1:
-        if nums[i] > val:
-            val = nums[i]
-            idx = i
+        result.append(i)
 
-if val == 0:
-    print(-1)
-else:
-    print(idx)
+print(max(result))
