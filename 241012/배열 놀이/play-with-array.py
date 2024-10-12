@@ -11,7 +11,9 @@ for qu in ques:
     if int(qu[0]) == 1:
         print(arr[int(qu[1]) - 1])
     elif int(qu[0]) == 2:
-        print(arr.index(int(qu[1])) + 1)
+        for i in range(len(arr)):
+            if arr[i] == int(qu[1]):
+                print(i+1)
     else:
         for i in range(int(qu[1]), int(qu[2]) + 1):
             print(arr[i-1], end=' ')
