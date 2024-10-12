@@ -14,6 +14,8 @@ for qu in ques:
         for i in range(len(arr)):
             if arr[i] == int(qu[1]):
                 print(i+1)
+        else:
+            print(0)
     else:
         for i in range(int(qu[1]), int(qu[2]) + 1):
             print(arr[i-1], end=' ')
