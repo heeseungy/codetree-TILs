@@ -3,4 +3,4 @@ arr = list(map(int, input().split()))
 
 arr.sort()
 
-print(arr[k])
+print(arr[k-1])
