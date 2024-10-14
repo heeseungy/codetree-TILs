@@ -1,5 +1,3 @@
-string = list(input())
-string.reverse()
-for i in range(len(string)):
-    if i % 2 == 0:
-        print(string[i], end='')
+string = input()
+for i in range(len(string)-1, -1, -2):
+    print(string[i], end='')
