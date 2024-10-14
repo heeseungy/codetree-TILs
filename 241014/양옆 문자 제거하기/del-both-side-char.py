@@ -1,2 +1,4 @@
-s = input()
-print(s[:2] + s[3:-2] + s[-1])
+s = list(input())
+s.pop(1)
+s.pop(-2)
+print(''.join(map(str, s)))
