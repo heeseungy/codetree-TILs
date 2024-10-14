@@ -1,1 +1,7 @@
-print(chr(ord(input()) + 1))
+a = ord(input())
+
+a += 1
+if a > 122:
+    a = chr(97)
+
+print(chr(a))
