@@ -8,7 +8,7 @@ words.sort()
 
 cnt = 0
 for w in words:
-    if T in w:
+    if T == w[:len(T)]:
         cnt += 1
     
     if cnt == int(k):
