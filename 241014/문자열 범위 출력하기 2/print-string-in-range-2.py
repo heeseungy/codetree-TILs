@@ -1,6 +1,11 @@
-string = input()
+string = list(input())
 n = int(input())
 
-length = len(string)
-for i in range(length-1, length-n-1, -1):
-    print(string[i], end='')
+string.reverse()
+
+if n > len(string):
+    for s in string:
+        print(s, end='')
+else:
+    for i in range(n):
+        print(string[i], end='')
