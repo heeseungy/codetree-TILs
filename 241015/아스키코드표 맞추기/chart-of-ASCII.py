@@ -1,3 +1,1 @@
-s = list(map(int, input().split()))
-
-print(' '.join(map(chr, s)))
+print(' '.join(map(chr, list(map(int, input().split())))))
