@@ -1,5 +1,5 @@
 n, k = map(int, input().split())
-arr = [0] * n + 1
+arr = [0] * (n + 1)
 
 for _ in range(k):
     start, end = map(int, input().split())
