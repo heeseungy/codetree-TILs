@@ -8,8 +8,8 @@
 # 최종위치는?
 
 x, y = 0, 0
-dir = 1
-dx, dy = [-1, 0, 1, 0], [0, -1, 0, 1]   # 좌 상 우 하
+dir = 0
+dx, dy = [0, 1, 0, -1], [1, 0, -1, 0]   # 상 좌 하 
 
 command = list(input())
 
@@ -19,7 +19,7 @@ for i in range(len(command)):
     elif command[i] == 'R':
         dir = (dir + 1) % 4    
     else:   # F
-        x = x + dx[dir]
-        y = y + dy[dir]
+        x += dx[dir]
+        y += dy[dir]
     
 print(x, y)
