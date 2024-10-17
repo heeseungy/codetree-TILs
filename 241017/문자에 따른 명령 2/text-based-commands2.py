@@ -16,12 +16,8 @@ command = list(input())
 for i in range(len(command)):
     if command[i] == 'L':
         dir = (dir + 3) % 4
-        if dir == -1:
-            dir = 3
-
     elif command[i] == 'R':
-        dir = (dir + 1) % 4
-    
+        dir = (dir + 1) % 4    
     else:   # F
         x = x + dx[dir]
         y = y + dy[dir]
