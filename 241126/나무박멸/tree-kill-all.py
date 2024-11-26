@@ -1,4 +1,4 @@
-#제초제 유효기간 감소 함수
+# 제초제 유효기간 감소 함수
 def remove():
     for y in range(n):
         for x in range(n):
@@ -7,10 +7,11 @@ def remove():
 
 # 성장
 def growth():
-
     # dx, dy 상하좌우
     dy = [-1, 1, 0, 0]
     dx = [0, 0, -1, 1]
+
+    temp_graph = [row[:] for row in graph]  # 그래프 복사
 
     for y in range(n):
         for x in range(n):
@@ -25,7 +26,12 @@ def growth():
                             count += 1
 
                 # 주변 인접나무만큼 성장하기
-                graph[y][x] += count
+                temp_graph[y][x] += count
+
+    # temp_graph를 graph로 복사
+    for y in range(n):
+        for x in range(n):
+            graph[y][x] = temp_graph[y][x]
 
 # 번식
 def breeding():
@@ -45,18 +51,19 @@ def breeding():
                     if 0 <= nx < n and 0 <= ny < n:
                         if graph[ny][nx] == 0 and time_graph[ny][nx] == 0:
                             count += 1
-                # 찐번식할 나무 수 임시배열 옮기기
-                for d in range(4):
-                    nx = x + dx[d]
-                    ny = y + dy[d]
-                    if 0 <= nx < n and 0 <= ny < n:
-                        if graph[ny][nx] == 0 and time_graph[ny][nx] == 0:
-                            breeding_graph[ny][nx] += (graph[y][x] // count)
-    # 찐번식
+                # 번식 가능한 칸이 있을 때만 번식 진행
+                if count > 0:
+                    spread_amount = graph[y][x] // count
+                    for d in range(4):
+                        nx = x + dx[d]
+                        ny = y + dy[d]
+                        if 0 <= nx < n and 0 <= ny < n:
+                            if graph[ny][nx] == 0 and time_graph[ny][nx] == 0:
+                                breeding_graph[ny][nx] += spread_amount
+    # 번식 결과를 graph에 반영
     for y in range(n):
         for x in range(n):
             graph[y][x] += breeding_graph[y][x]
-
 
 # 제초제 살포
 def spraying():
@@ -88,9 +95,18 @@ def spraying():
                 # max 값 갱신하기
                 if count > max_count:
                     max_count, max_x, max_y = count, x, y
+                elif count == max_count:
+                    # 행과 열이 작은 순서로 선택
+                    if y < max_y or (y == max_y and x < max_x):
+                        max_x, max_y = x, y
+
+    # 실제로 제거한 나무 수 합산을 위한 변수
+    total_killed = 0
 
     # 최대 살육위치에 제초제 살포
     if max_x != -1 and max_y != -1:
+        if graph[max_y][max_x] > 0:
+            total_killed += graph[max_y][max_x]
         graph[max_y][max_x] = 0
         time_graph[max_y][max_x] = c + 1
         for d in range(4):
@@ -98,16 +114,19 @@ def spraying():
                 nx = max_x + (dx[d] * dd)
                 ny = max_y + (dy[d] * dd)
                 if 0 <= nx < n and 0 <= ny < n:
-                    if graph[ny][nx] == -1: # 벽인 경우 더이상 안뿌림
+                    if graph[ny][nx] == -1:  # 벽인 경우 더이상 안뿌림
                         break
                     time_graph[ny][nx] = c + 1
                     if graph[ny][nx] == 0:  # 나무가 존재하지 않는 경우
                         break
-                    else:   # 벽이 아니고 나무가 존재하는 경우
+                    else:  # 벽이 아니고 나무가 존재하는 경우
+                        total_killed += graph[ny][nx]
                         graph[ny][nx] = 0
+                else:
+                    break
 
-    # 최대살육 나무 수 리턴
-    return max_count
+    # 실제로 제거한 나무 수 리턴
+    return total_killed
 
 n, m, k, c = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]  # 나무, 벽 입력 그래프
