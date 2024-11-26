@@ -110,9 +110,9 @@ time_graph = [list(0 for _ in range(n)) for _ in range(n)]
 answer = 0
 
 for year in range(m):
-    remove()    # Decrease herbicide duration
-    growth()    # Tree growth
-    breeding()  # Tree breeding
-    answer += spraying()  # Apply herbicide
+    remove()    # 제초제 지속 시간 감소
+    growth()    # 나무 성장
+    breeding()  # 나무 번식
+    answer += spraying()  # 제초제 살포
 
 print(answer)
