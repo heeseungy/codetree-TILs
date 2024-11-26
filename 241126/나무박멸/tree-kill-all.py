@@ -1,3 +1,17 @@
+def check():
+    print('### graph ###')
+    for i in range(n):
+        for j in range(n):
+            print(graph[i][j], end=' ')
+        print()
+
+    print()
+    print('### time_graph ###')
+    for i in range(n):
+        for j in range(n):
+            print(time_graph[i][j], end=' ')
+        print()
+
 #제초제 유효기간 감소 함수
 def remove():
     for i in range(n):
@@ -77,6 +91,8 @@ def spraying():
                         nx = x + (dx[d] * dd)
                         ny = y + (dy[d] * dd)
                         if 0 <= nx < n and 0 <= ny < n:
+                            if graph[ny][nx] == -1:
+                                break
                             if graph[ny][nx] > 0:
                                 count += graph[ny][nx]
                 # max 값 갱신하기
@@ -84,14 +100,18 @@ def spraying():
                     max_count, max_x, max_y = count, x, y
 
     # 최대 살육위치에 제초제 살포
+    graph[max_y][max_x] = 0
+    time_graph[max_y][max_x] = c + 1
     for d in range(4):
         for dd in range(1, k+1):
             nx = max_x + (dx[d] * dd)
             ny = max_y + (dy[d] * dd)
             if 0 <= nx < n and 0 <= ny < n:
-                if graph[ny][nx] != -1 and graph[ny][nx] > 0:   # 벽이 아니고 나무가 존재하는 경우
+                if graph[ny][nx] == -1: # 벽인 경우 더이상 안뿌림
+                    break
+                if graph[ny][nx] > 0:   # 벽이 아니고 나무가 존재하는 경우
                     graph[ny][nx] = 0
-                    time_graph[ny][nx] = c
+                    time_graph[ny][nx] = c + 1
 
     # 최대살육 나무 수 리턴
     return max_count
