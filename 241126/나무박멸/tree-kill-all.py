@@ -60,57 +60,54 @@ def breeding():
 
 # 제초제 살포
 def spraying():
+
+    # 좌상, 우상, 좌하, 우하
     dy = [-1, -1, 1, 1]
     dx = [-1, 1, -1, 1]
 
-    max_count = -1
-    max_x, max_y = -1, -1
+    max_count, max_x, max_y = -1, -1, -1
 
     for y in range(n):
         for x in range(n):
+            # 나무가 있을 경우, 해당 칸에 살포 시 죽는 나무 수 세기
             if graph[y][x] > 0:
                 count = graph[y][x]
                 for d in range(4):
                     for dd in range(1, k+1):
-                        nx = x + dx[d] * dd
-                        ny = y + dy[d] * dd
+                        nx = x + (dx[d] * dd)
+                        ny = y + (dy[d] * dd)
                         if 0 <= nx < n and 0 <= ny < n:
+                            # 벽 있을 때, 살포중단
                             if graph[ny][nx] == -1:
                                 break
-                            elif graph[ny][nx] == 0:
+                            # 나무가 없을 때, 살포중단
+                            if graph[ny][nx] == 0:
                                 break
                             else:
                                 count += graph[ny][nx]
-                        else:
-                            break
+                # max 값 갱신하기
                 if count > max_count:
                     max_count, max_x, max_y = count, x, y
-                elif count == max_count:
-                    if y < max_y or (y == max_y and x < max_x):
-                        max_x, max_y = x, y
 
-    total_killed = 0
+    # 최대 살육위치에 제초제 살포
     if max_x != -1 and max_y != -1:
-        if graph[max_y][max_x] > 0:
-            total_killed += graph[max_y][max_x]
         graph[max_y][max_x] = 0
         time_graph[max_y][max_x] = c + 1
         for d in range(4):
             for dd in range(1, k+1):
-                nx = max_x + dx[d] * dd
-                ny = max_y + dy[d] * dd
+                nx = max_x + (dx[d] * dd)
+                ny = max_y + (dy[d] * dd)
                 if 0 <= nx < n and 0 <= ny < n:
-                    if graph[ny][nx] == -1:
+                    if graph[ny][nx] == -1: # 벽인 경우 더이상 안뿌림
                         break
                     time_graph[ny][nx] = c + 1
-                    if graph[ny][nx] == 0:
+                    if graph[ny][nx] == 0:  # 나무가 존재하지 않는 경우
                         break
-                    else:
-                        total_killed += graph[ny][nx]
+                    else:   # 벽이 아니고 나무가 존재하는 경우
                         graph[ny][nx] = 0
-                else:
-                    break
-    return total_killed
+
+    # 최대살육 나무 수 리턴
+    return max_count
 
 n, m, k, c = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]  # 나무, 벽 입력 그래프
